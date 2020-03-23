@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/docTool.css">
+</head>
+<body>
+<div id="container"></div>
+<script src="jquery/jquery-3.4.1.min.js"></script>
+<script src="js/docTool.js"></script>
+<script>
+    document.addEventListener("click", () => {
+        let doc = new DocTool("container");
+        doc.createImgFloatWithPath("https://avatar.csdnimg.cn/6/4/7/2_u013642500.jpg");
+        doc.createTitle("Title");
+        doc.createSubTitle("SubTitle");
+        doc.createH1("Title1");
+        doc.createH2("Title2");
+        doc.createText("title : ", "text");
+        doc.createText("");
+        doc.createText("text");
+        doc.createImgInLineWithPath("https://avatar.csdnimg.cn/6/4/7/2_u013642500.jpg");
+    });
+</script>
+</body>
+</html>
