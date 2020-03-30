@@ -76,3 +76,13 @@
 .docContainer .docImg {
     text-align: center;
 }
+
+.docContainer .docTable {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.docContainer .docTable td {
+    border: 1px solid #000;
+}

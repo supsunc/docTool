@@ -1,5 +1,5 @@
 /**
- * @version 0.1
+ * @version 0.2
  * @author ssc
  */
 class DocTool {
@@ -210,17 +210,33 @@ class DocTool {
     }
 
     /**
+     * 清除标题样式，并对已添加的标题生效
+     */
+    clearTitleStyle() {
+        this.titleStyle = {};
+        this.$container.find(".docTitle").removeAttr("style");
+    }
+
+    /**
+     * 清除标题样式
+     */
+    clearTitleStyleSetting() {
+        this.titleStyle = {};
+    }
+
+    /**
      * 添加标题行
      *
      * @param text {string} 文本内容
+     * @param style {...Object | undefined} 样式
      */
-    createTitle(text) {
+    createTitle(text, style = {}) {
         if (this.creating) {
             this.taskQueue[this.taskQueue.length] = {method: this.createTitle, argArray: Array.from(arguments)};
         } else {
             this.creating = true;
             setTimeout(() => {
-                this.__createTitle(text);
+                this.__createTitle(text, style);
                 this.creating = false;
                 this.__continueWork();
             });
@@ -231,9 +247,11 @@ class DocTool {
      * 添加标题行核心代码
      *
      * @param text {string} 文本内容
+     * @param style {...Object | undefined} 样式
      */
-    __createTitle(text) {
-        DocTool.addText({thisArg: this, text, className: "docTitle", fn: this.__createTitle}, function ($new) {
+    __createTitle(text, style = {}) {
+        DocTool.deleteProperties(style, "margin");
+        this.__addText({text, className: "docTitle", fn: this.__createTitle}, $new => {
             if (Object.keys(this.titleStyle).length === 0) {
                 $new.css("font-size", this.titleFontSize)
                     .css("font-weight", this.titleFontWeight)
@@ -245,6 +263,7 @@ class DocTool {
             } else {
                 $new.css(this.titleStyle);
             }
+            $new.css(style);
         });
     }
 
@@ -331,17 +350,33 @@ class DocTool {
     }
 
     /**
+     * 清除副标题样式，并对已添加的副标题生效
+     */
+    clearSubTitleStyle() {
+        this.subTitleStyle = {};
+        this.$container.find(".docSubTitle").removeAttr("style");
+    }
+
+    /**
+     * 清除副标题样式
+     */
+    clearSubTitleStyleSetting() {
+        this.subTitleStyle = {};
+    }
+
+    /**
      * 创建副标题行
      *
      * @param text {string} 文本内容
+     * @param style {...Object | undefined} 样式
      */
-    createSubTitle(text) {
+    createSubTitle(text, style = {}) {
         if (this.creating) {
             this.taskQueue[this.taskQueue.length] = {method: this.createSubTitle, argArray: Array.from(arguments)};
         } else {
             this.creating = true;
             setTimeout(() => {
-                this.__createSubTitle(text);
+                this.__createSubTitle(text, style);
                 this.creating = false;
                 this.__continueWork();
             });
@@ -352,9 +387,11 @@ class DocTool {
      * 创建副标题行核心代码
      *
      * @param text {string} 文本内容
+     * @param style {...Object | undefined} 样式
      */
-    __createSubTitle(text) {
-        DocTool.addText({thisArg: this, text, className: "docSubTitle", fn: this.__createSubTitle}, function ($new) {
+    __createSubTitle(text, style = {}) {
+        DocTool.deleteProperties(style, "margin");
+        this.__addText({text, className: "docSubTitle", fn: this.__createSubTitle}, $new => {
             if (Object.keys(this.subTitleStyle).length === 0) {
                 $new.css("font-size", this.subTitleFontSize)
                     .css("font-weight", this.subTitleFontWeight)
@@ -366,6 +403,7 @@ class DocTool {
             } else {
                 $new.css(this.subTitleStyle);
             }
+            $new.css(style);
         });
     }
 
@@ -452,17 +490,33 @@ class DocTool {
     }
 
     /**
+     * 清除一级标题样式，并对已添加的一级标题生效
+     */
+    clearH1Style() {
+        this.h1Style = {};
+        this.$container.find(".docH1").removeAttr("style");
+    }
+
+    /**
+     * 清除一级标题样式
+     */
+    clearH1StyleSetting() {
+        this.h1Style = {};
+    }
+
+    /**
      * 创建一级标题行
      *
      * @param text {string} 文本内容
+     * @param style {...Object | undefined} 样式
      */
-    createH1(text) {
+    createH1(text, style = {}) {
         if (this.creating) {
             this.taskQueue[this.taskQueue.length] = {method: this.createH1, argArray: Array.from(arguments)};
         } else {
             this.creating = true;
             setTimeout(() => {
-                this.__createH1(text);
+                this.__createH1(text, style);
                 this.creating = false;
                 this.__continueWork();
             });
@@ -473,9 +527,11 @@ class DocTool {
      * 创建一级标题行核心代码
      *
      * @param text {string} 文本内容
+     * @param style {...Object | undefined} 样式
      */
-    __createH1(text) {
-        DocTool.addText({thisArg: this, text, className: "docH1", fn: this.__createH1}, function ($new) {
+    __createH1(text, style = {}) {
+        DocTool.deleteProperties(style, "margin");
+        this.__addText({text, className: "docH1", fn: this.__createH1}, $new => {
             if (Object.keys(this.h1Style).length === 0) {
                 $new.css("font-size", this.h1FontSize)
                     .css("font-weight", this.h1FontWeight)
@@ -487,6 +543,7 @@ class DocTool {
             } else {
                 $new.css(this.h1Style);
             }
+            $new.css(style);
         });
     }
 
@@ -573,17 +630,33 @@ class DocTool {
     }
 
     /**
+     * 清除二级标题样式，并对已添加的二级标题生效
+     */
+    clearH2Style() {
+        this.h2Style = {};
+        this.$container.find(".docH2").removeAttr("style");
+    }
+
+    /**
+     * 清除二级标题样式
+     */
+    clearH2StyleSetting() {
+        this.h2Style = {};
+    }
+
+    /**
      * 创建二级标题行
      *
      * @param text {string} 文本内容
+     * @param style {...Object | undefined} 样式
      */
-    createH2(text) {
+    createH2(text, style = {}) {
         if (this.creating) {
             this.taskQueue[this.taskQueue.length] = {method: this.createH2, argArray: Array.from(arguments)};
         } else {
             this.creating = true;
             setTimeout(() => {
-                this.__createH2(text);
+                this.__createH2(text, style);
                 this.creating = false;
                 this.__continueWork();
             });
@@ -594,9 +667,11 @@ class DocTool {
      * 创建二级标题行核心代码
      *
      * @param text {string} 文本内容
+     * @param style {...Object | undefined} 样式
      */
-    __createH2(text) {
-        DocTool.addText({thisArg: this, text, className: "docH2", fn: this.__createH2}, function ($new) {
+    __createH2(text, style = {}) {
+        DocTool.deleteProperties(style, "margin");
+        this.__addText({text, className: "docH2", fn: this.__createH2}, $new => {
             if (Object.keys(this.h2Style).length === 0) {
                 $new.css("font-size", this.h2FontSize)
                     .css("font-weight", this.h2FontWeight)
@@ -608,6 +683,7 @@ class DocTool {
             } else {
                 $new.css(this.h2Style);
             }
+            $new.css(style);
         });
     }
 
@@ -694,6 +770,21 @@ class DocTool {
     }
 
     /**
+     * 清除正文样式，并对已添加的正文生效
+     */
+    clearTextStyle() {
+        this.textStyle = {};
+        this.$container.find(".docText").removeAttr("style");
+    }
+
+    /**
+     * 清除正文样式
+     */
+    clearTextStyleSetting() {
+        this.textStyle = {};
+    }
+
+    /**
      * 创建正文行
      *
      * @param title {string} 文本内容或标题名
@@ -723,7 +814,7 @@ class DocTool {
             text = title;
             title = undefined;
         }
-        DocTool.addText({thisArg: this, title, text, className: "docText", fn: this.__createText}, function ($new) {
+        this.__addText({title, text, className: "docText", fn: this.__createText}, $new => {
             if (Object.keys(this.textStyle).length === 0) {
                 $new.css("font-size", this.textFontSize)
                     .css("font-weight", this.textFontWeight)
@@ -742,19 +833,19 @@ class DocTool {
      * 创建自定义文本行
      *
      * @param text {string} 文本内容
-     * @param style {...object | undefined} jQuery 的 css 样式
+     * @param className {...string | [] | undefined} 自定义类名
+     * @param style {...Object | undefined} jQuery 的 css 样式
      */
-    createCustomText(text, style = {}) {
+    createCustomText(text, className = "", style = {}) {
         if (this.creating) {
             this.taskQueue[this.taskQueue.length] = {method: this.createCustomText, argArray: Array.from(arguments)};
         } else {
             this.creating = true;
             setTimeout(() => {
-                this.__createCustomText(text, style);
+                this.__createCustomText(text, className, style);
                 this.creating = false;
                 this.__continueWork();
             });
-            this.__continueWork();
         }
     }
 
@@ -762,19 +853,20 @@ class DocTool {
      * 创建自定义文本行
      *
      * @param text {string} 文本内容
+     * @param className {string | []}
      * @param style {Object} jQuery 的 css 样式
      */
-    __createCustomText(text, style) {
-        DocTool.addText({thisArg: this, text, className: "", fn: this.createCustomText}, function ($new) {
-            $new.css(style)
-        });
+    __createCustomText(text, className, style) {
+        DocTool.deleteProperties(style, "margin");
+        if (Array.isArray(className)) className = className.join(" ");
+        this.__addText({text, className, fn: this.createCustomText}, $new => $new.css(style));
     }
 
     /**
      * 通过图片 base64 创建图片行
      *
      * @param base64 {string} 图片 base64 码
-     * @param obj {...object | undefined} 包含图片格式、title、alt、jQuery 的 css 样式等信息的对象
+     * @param obj {...Object | undefined} 包含图片格式、title、alt、jQuery 的 css 样式等信息的对象
      */
     createImgInLineWithBase64(base64, obj = {type: "png"}) {
         if (this.creating) {
@@ -783,25 +875,22 @@ class DocTool {
             this.creating = true;
             if (typeof obj !== "object" || obj === null) obj = {type: "png"};
             let article = this.__getLastPage();
-            let h = this.__getContentHeight(article);
+            let h = DocTool.getContentHeight(article);
             if (!base64.startsWith("data:image/")) base64 = `data:image/${typeof obj.type === "string" ? obj.type : "png"};base64,${base64}`;
-            let $new = $(`<div class="docImg" ${typeof obj.align === "string" ? `style="text-align: ${obj.align}"`: ""}><img src="${base64}" title="${typeof obj.title === "string" ? obj.title : ""}" alt="${typeof obj.alt === "string" ? obj.alt : ""}"></div>`);
+            let $new = $(`<div class="docImg" ${typeof obj.align === "string" ? `style="text-align: ${obj.align}"` : ""}><img src="${base64}" title="${typeof obj.title === "string" ? obj.title : ""}" alt="${typeof obj.alt === "string" ? obj.alt : ""}"></div>`);
             if (typeof obj.style === "object" && obj.style !== null) {
                 let style = JSON.parse(JSON.stringify(obj.style));
                 DocTool.deleteProperties(style, "float");
                 $new.css(style);
             }
-
             article.append($new);
 
-            let _this = this;
             setTimeout(() => {
-                if (h + $new.outerHeight() > _this.__getPageHeightLimit()) {
-                    $new.remove();
-                    _this.addPage().append($new);
+                if (h + $new.outerHeight() > this.__getPageHeightLimit()) {
+                    this.addPage().append($new);
                 }
-                _this.creating = false;
-                _this.__continueWork();
+                this.creating = false;
+                this.__continueWork();
             });
         }
     }
@@ -810,7 +899,7 @@ class DocTool {
      * 通过图片 base64 创建浮动图片
      *
      * @param base64 {string} 图片 base64 码
-     * @param obj {...object | undefined} 包含 float 形式、图片格式、title、alt、jQuery 的 css 样式等信息的对象
+     * @param obj {...Object | undefined} 包含 float 形式、图片格式、title、alt、jQuery 的 css 样式等信息的对象
      */
     createImgFloatWithBase64(base64, obj = {type: "png", float: "right"}) {
         if (this.creating) {
@@ -819,7 +908,7 @@ class DocTool {
             this.creating = true;
             if (typeof obj !== "object" || obj === null) obj = {type: "png", float: "right"};
             let article = this.__getLastPage();
-            let h = this.__getContentHeight(article);
+            let h = DocTool.getContentHeight(article);
             if (!base64.startsWith("data:image/")) base64 = `data:image/${typeof obj.type === "string" ? obj.type : "png"};base64,${base64}`;
             let $new = $(`<div style="float: ${typeof obj.float === "string" ? obj.float : "right"};"><img src="${base64}" title="${typeof obj.title === "string" ? obj.title : ""}" alt="${typeof obj.alt === "string" ? obj.alt : ""}"></div>`);
             if (typeof obj.style === "object" && obj.style !== null) {
@@ -827,17 +916,14 @@ class DocTool {
                 DocTool.deleteProperties(style, "float");
                 $new.css(style);
             }
-
             article.append($new);
 
-            let _this = this;
             setTimeout(() => {
-                if (h + $new.outerHeight() > _this.__getPageHeightLimit()) {
-                    $new.remove();
-                    _this.addPage().append($new);
+                if (h + $new.outerHeight() > this.__getPageHeightLimit()) {
+                    this.addPage().append($new);
                 }
-                _this.creating = false;
-                _this.__continueWork();
+                this.creating = false;
+                this.__continueWork();
             });
         }
     }
@@ -846,7 +932,7 @@ class DocTool {
      * 通过图片路径创建图片行
      *
      * @param path {string} 图片路径
-     * @param obj {...object | undefined} 包含 title、alt、jQuery 的 css 样式等信息的对象
+     * @param obj {...Object | undefined} 包含 title、alt、jQuery 的 css 样式等信息的对象
      */
     createImgInLineWithPath(path, obj = {}) {
         if (this.creating) {
@@ -855,24 +941,21 @@ class DocTool {
             this.creating = true;
             if (typeof obj !== "object" || obj === null) obj = {};
             let article = this.__getLastPage();
-            let h = this.__getContentHeight(article);
-            let $new = $(`<div class="docImg" ${typeof obj.align === "string" ? `style="text-align: ${obj.align}"`: ""}><img src="${path}" title="${typeof obj.title === "string" ? obj.title : ""}" alt="${typeof obj.alt === "string" ? obj.alt : ""}"></div>`);
+            let h = DocTool.getContentHeight(article);
+            let $new = $(`<div class="docImg" ${typeof obj.align === "string" ? `style="text-align: ${obj.align}"` : ""}><img src="${path}" title="${typeof obj.title === "string" ? obj.title : ""}" alt="${typeof obj.alt === "string" ? obj.alt : ""}"></div>`);
             if (typeof obj.style === "object" && obj.style !== null) {
                 let style = JSON.parse(JSON.stringify(obj.style));
                 DocTool.deleteProperties(style, "float");
                 $new.css(style);
             }
-
             article.append($new);
 
-            let _this = this;
             setTimeout(() => {
-                if (h + $new.outerHeight() > _this.__getPageHeightLimit()) {
-                    $new.remove();
-                    _this.addPage().append($new);
+                if (h + $new.outerHeight() > this.__getPageHeightLimit()) {
+                    this.addPage().append($new);
                 }
-                _this.creating = false;
-                _this.__continueWork();
+                this.creating = false;
+                this.__continueWork();
             });
         }
     }
@@ -881,7 +964,7 @@ class DocTool {
      * 通过图片路径创建浮动图片
      *
      * @param path {string} 图片路径
-     * @param obj {...object | undefined} 包含 float 形式、title、alt、jQuery 的 css 样式等信息的对象
+     * @param obj {...Object | undefined} 包含 float 形式、title、alt、jQuery 的 css 样式等信息的对象
      */
     createImgFloatWithPath(path, obj = {float: "right"}) {
         if (this.creating) {
@@ -890,24 +973,134 @@ class DocTool {
             this.creating = true;
             if (typeof obj !== "object" || obj === null) obj = {float: "right"};
             let article = this.__getLastPage();
-            let h = this.__getContentHeight(article);
+            let h = DocTool.getContentHeight(article);
             let $new = $(`<div style="float: ${typeof obj.float === "string" ? obj.float : "right"};"><img src="${path}" title="${typeof obj.title === "string" ? obj.title : ""}" alt="${typeof obj.alt === "string" ? obj.alt : ""}"></div>`);
             if (typeof obj.style === "object" && obj.style !== null) {
                 let style = JSON.parse(JSON.stringify(obj.style));
                 DocTool.deleteProperties(style, "float");
                 $new.css(style);
             }
-
             article.append($new);
 
-            let _this = this;
             setTimeout(() => {
-                if (h + $new.outerHeight() > _this.__getPageHeightLimit()) {
-                    $new.remove();
-                    _this.addPage().append($new);
+                if (h + $new.outerHeight() > this.__getPageHeightLimit()) {
+                    this.addPage().append($new);
                 }
-                _this.creating = false;
-                _this.__continueWork();
+                this.creating = false;
+                this.__continueWork();
+            });
+        }
+    }
+
+    /**
+     * 创建表格
+     *
+     * @param table {[[]]} 表格数组
+     * @param obj {...Object | undefined} className、multipleLine、css 样式等信息的对象
+     */
+    createTable(table, obj = {}) {
+        if (this.creating) {
+            this.taskQueue[this.taskQueue.length] = {method: this.createTable, argArray: Array.from(arguments)};
+        } else {
+            this.creating = true;
+            setTimeout(() => {
+                this.__createTable(table, obj);
+                this.creating = false;
+                this.__continueWork();
+            });
+        }
+    }
+
+    /**
+     * 创建表格核心代码
+     *
+     * @param table {[]} 表格数组
+     * @param obj {...Object | undefined} className、multipleLine、css 样式等信息的对象
+     */
+    __createTable(table, obj) {
+        let defaultProp = {
+            className: "docTable",
+            style: {},
+            multipleLine: true,
+            multipleLineSplitSymbolRegExp: "\\n",
+            customCol: [],   // 指定的某几行
+            customColStyle: {},     // 指定的某几行样式
+            customRow: [],   // 指定的某几列
+            customRowStyle: {},     // 指定的某几列样式
+            topHeadNum: 0,
+            topHeadStyle: {},
+            leftHeadNum: 0,
+            leftHeadStyle: {},
+            rightHeadNum: 0,
+            rightHeadStyle: {},
+            bottomHeadNum: 0,
+            bottomHeadStyle: {},
+            contentStyle: {},
+            contentStyles: [],
+            contentStylesPrivilege: [],
+        };
+        DocTool.shallowCopy(defaultProp, obj);
+        if (Array.isArray(defaultProp.className)) defaultProp.className = defaultProp.className.join(" ");
+        else if (typeof defaultProp.className !== "string") defaultProp.className = "docTable";
+        if (typeof defaultProp.multipleLineSplitSymbolRegExp !== "string") defaultProp.multipleLineSplitSymbolRegExp = "\\n";
+        DocTool.deleteProperties(defaultProp.style, "margin");
+
+        let $article = this.__getLastPage();    // 最后一页
+        let h = DocTool.getContentHeight($article); // 最后一页内容高度
+        let pageHeightLimit = this.__getPageHeightLimit();  // 一页的高度
+
+        let $new = $(`<table class="${defaultProp.className}"></table>`).css(defaultProp.style);    // 创建完整的表格
+        if (Array.isArray(table)) {
+            $article.append($new);   // 先把表格添加上去
+            let regExp = new RegExp(defaultProp.multipleLineSplitSymbolRegExp, "g");
+            let trLength = table.length;
+            table.forEach((tr, i) => {
+                let $tr = $(`<tr></tr>`);
+                if (Array.isArray(tr)) {
+                    tr.forEach((td, j) => {
+                        td += "";   // 修正为字符串
+                        td = defaultProp.multipleLine ? `<div>${td.replace(regExp, "</div><div>")}</div>` : `<div>${td}</div>`; // 用 div 标签包裹
+                        let $td = $(`<td>${td}</td>`).css(defaultProp.contentStyle);    // 优先级最低的单元格 td 样式
+                        if (defaultProp.contentStyles.hasOwnProperty(i) && defaultProp.contentStyles[i].hasOwnProperty(j) && typeof defaultProp.contentStyles[i][j] === "object") {
+                            $td.css(defaultProp.contentStyles[i][j]);   // 自定义单独单元格 td 样式
+                        }
+                        $tr.append($td);
+                    });
+                    let $tds = $tr.children("td");
+                    // 指定特殊列应用样式
+                    Array.isArray(defaultProp.customRow) && defaultProp.customRow.forEach(row => $tds.eq(row).css(defaultProp.customRowStyle));
+                    // 指定特殊行应用样式
+                    Array.isArray(defaultProp.customCol) && defaultProp.customCol.some(col => col === i && $tds.css(defaultProp.customColStyle));
+                    // 右表头
+                    let tdLength = tr.length - 1;
+                    for (let j = 0; j < defaultProp.rightHeadNum; j++)
+                        $tds.eq(tdLength - j).css(defaultProp.rightHeadStyle);
+                    // 下表头
+                    defaultProp.bottomHeadNum >= (trLength - i) && $tds.css(defaultProp.bottomHeadStyle);
+                    // 左表头
+                    for (let j = 0; j < defaultProp.leftHeadNum; j++)
+                        $tds.eq(j).css(defaultProp.leftHeadStyle);
+                    // 上表头
+                    defaultProp.topHeadNum > i && $tds.css(defaultProp.topHeadStyle);
+
+                    // 单独设置某个 td 样式覆盖之前全部冲突样式
+                    $tds.each(function () {
+                        let $this = $(this), j = $this.index();
+                        if (defaultProp.contentStylesPrivilege.hasOwnProperty(i) && defaultProp.contentStylesPrivilege[i].hasOwnProperty(j) && typeof defaultProp.contentStylesPrivilege[i][j] === "object") {
+                            $this.css(defaultProp.contentStylesPrivilege[i][j]);
+                        }
+                    });
+                }
+                $new.append($tr);
+                if ($new.outerHeight() + h > pageHeightLimit) {
+                    if (i === 0) {
+                        $article = this.addPage().append($new);  // 添加新页面
+                    } else {
+                        $new = $(`<table class="${defaultProp.className}"></table>`).css(defaultProp.style).append($tr);
+                        $article = this.addPage().append($new);  // 添加新页面
+                    }
+                    h = DocTool.getContentHeight($article);
+                }
             });
         }
     }
@@ -946,12 +1139,73 @@ class DocTool {
     }
 
     /**
+     * 添加文本核心代码，
+     *
+     * @param obj {{title: ...string | undefined, text: string, className: string, fn: function}}
+     * @param fn {function}
+     */
+    __addText(obj, fn = () => undefined) {
+        let $article = this.__getLastPage(),
+            contentHeight = DocTool.getContentHeight($article),
+            pageHeightLimit = this.__getPageHeightLimit(),
+            className = obj.className,
+            title = obj.title,
+            text = obj.text,
+            $new = title === undefined ? $(`<div class="${className}">${DocTool.htmlEncode(text)}</div>`) : $(`<div class="${className}"><span style="font-weight: bold;">${DocTool.htmlEncode(title)}</span><span>${DocTool.htmlEncode(text)}</span></div>`);
+        fn($new); // 创建 $new 后的回调函数
+        $article.append($new);  // 直接添加
+
+        let h = contentHeight + $new.outerHeight(); // 添加后内容高度
+        if (h > pageHeightLimit) {   // 直接添加后高度超出
+            $new.remove();  // 移除这个元素
+            let i = 0;  // 统计分割字符串长度
+            let $temp = $(`<div class="${className}">&nbsp;</div>`);    // 创建单行文本临时元素用来检测高度
+            $article.append($temp);  // 添加后才能返回高度值
+            if (contentHeight + $temp.outerHeight() <= pageHeightLimit) {   // 添加单行文本能容得下
+                $temp.remove(); // 移除临时元素
+                while (h > pageHeightLimit && i < text.length + (title === undefined ? 0 : title.length)) {   // 内容高度超出了限制
+                    $new.remove();  // 首先移除
+                    if (title === undefined) {
+                        let str = text.substring(0, text.length - (++i));   // 切割字符串
+                        $new = $(`<div class="${className}">${DocTool.htmlEncode(str)}</div>`);
+                    } else if (i < text.length) {
+                        let str = text.substring(0, text.length - (++i));   // 切割字符串
+                        $new = $(`<div class="${className}"><span style="font-weight: bold;">${DocTool.htmlEncode(title)}</span><span>${DocTool.htmlEncode(str)}</span></div>`);
+                    } else {
+                        let str = title.substring(0, title.length + text.length - (++i));   // 切割字符串
+                        $new = $(`<div class="${className}"><span style="font-weight: bold;">${DocTool.htmlEncode(str)}</span></div>`);
+                    }
+                    fn($new); // 创建 $new 后的回调函数
+                    $article.append($new);  // 添加处理后的元素
+                    h = contentHeight + $new.outerHeight(); // 添加后内容高度
+                }
+                this.addPage();  // 添加新页面
+                if (title === undefined) {
+                    obj.fn.call(this, text.substring(text.length - i));
+                } else if (i < text.length) {
+                    obj.fn.call(this, title, text.substring(text.length - i));
+                } else {
+                    obj.fn.call(this, title.substring(title.length + text.length - i), text);
+                }
+            } else {    // 单行文本已经容不下了
+                $temp.remove(); // 移除临时元素
+                this.addPage();  // 添加新页面
+                if (title === undefined) {
+                    obj.fn.call(this, text); // 重新添加
+                } else {
+                    obj.fn.call(this, title, text); // 重新添加
+                }
+            }
+        }
+    }
+
+    /**
      * 获取指定页面内容高度
      *
      * @param article {jQuery}
      * @returns {number}
      */
-    __getContentHeight(article) {
+    static getContentHeight(article) {
         let h = 0;
         article.children().each(function () {
             if ($(this).css("float") === "none")
@@ -1003,63 +1257,15 @@ class DocTool {
     }
 
     /**
-     * 添加文本核心代码，
+     * 浅拷贝
      *
-     * @param obj {{thisArg: DocTool, title: ...string | undefined, text: string, className: string, fn: function}}
-     * @param fn {function}
+     * @param target {Object} 目标对象
+     * @param origin {Object} 源对象
      */
-    static addText(obj, fn = () => undefined) {
-        let thisArg = obj.thisArg,
-            $article = thisArg.__getLastPage(),
-            contentHeight = thisArg.__getContentHeight($article),
-            pageHeightLimit = thisArg.__getPageHeightLimit(),
-            className = obj.className,
-            title = obj.title,
-            text = obj.text,
-            $new = title === undefined ? $(`<div class="${className}">${DocTool.htmlEncode(text)}</div>`) : $(`<div class="${className}"><span style="font-weight: bold;">${DocTool.htmlEncode(title)}</span><span>${DocTool.htmlEncode(text)}</span></div>`);
-        fn.call(thisArg, $new); // 创建 $new 后的回调函数
-        $article.append($new);  // 直接添加
-
-        let h = contentHeight + $new.outerHeight(); // 添加后内容高度
-        if (h > pageHeightLimit) {   // 直接添加后高度超出
-            $new.remove();  // 移除这个元素
-            let i = 0;  // 统计分割字符串长度
-            let $temp = $(`<div class="${className}">&nbsp;</div>`);    // 创建单行文本临时元素用来检测高度
-            $article.append($temp);  // 添加后才能返回高度值
-            if (contentHeight + $temp.outerHeight() <= pageHeightLimit) {   // 添加单行文本能容得下
-                $temp.remove(); // 移除临时元素
-                while (h > pageHeightLimit && i < text.length + (title === undefined ? 0 : title.length)) {   // 内容高度超出了限制
-                    $new.remove();  // 首先移除
-                    if (title === undefined) {
-                        let str = text.substring(0, text.length - (++i));   // 切割字符串
-                        $new = $(`<div class="${className}">${DocTool.htmlEncode(str)}</div>`);
-                    } else if (i < text.length) {
-                        let str = text.substring(0, text.length - (++i));   // 切割字符串
-                        $new = $(`<div class="${className}"><span style="font-weight: bold;">${DocTool.htmlEncode(title)}</span><span>${DocTool.htmlEncode(str)}</span></div>`);
-                    } else {
-                        let str = title.substring(0, title.length + text.length - (++i));   // 切割字符串
-                        $new = $(`<div class="${className}"><span style="font-weight: bold;">${DocTool.htmlEncode(str)}</span></div>`);
-                    }
-                    fn.call(thisArg, $new); // 创建 $new 后的回调函数
-                    $article.append($new);  // 添加处理后的元素
-                    h = contentHeight + $new.outerHeight(); // 添加后内容高度
-                }
-                thisArg.addPage();  // 添加新页面
-                if (title === undefined) {
-                    obj.fn.call(thisArg, text.substring(text.length - i));
-                } else if (i < text.length) {
-                    obj.fn.call(thisArg, title, text.substring(text.length - i));
-                } else {
-                    obj.fn.call(thisArg, title.substring(title.length + text.length - i), text);
-                }
-            } else {    // 单行文本已经容不下了
-                $temp.remove(); // 移除临时元素
-                thisArg.addPage();  // 添加新页面
-                if (title === undefined) {
-                    obj.fn.call(thisArg, text); // 重新添加
-                } else {
-                    obj.fn.call(thisArg, title, text); // 重新添加
-                }
+    static shallowCopy(target, origin) {
+        for (let item in origin) {
+            if (target.hasOwnProperty(item) && origin.hasOwnProperty(item)) {
+                target[item] = origin[item];
             }
         }
     }
