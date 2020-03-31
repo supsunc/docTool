@@ -1,5 +1,5 @@
 /**
- * @version 0.2
+ * @version 0.21
  * @author ssc
  */
 class DocTool {
@@ -39,7 +39,7 @@ class DocTool {
         this.subTitleFontWeight = ""; // 副标题字体粗细
         this.subTitleFontColor = "";  // 副标题字体颜色
         this.subTitleTextAlign = "";  // 副标题字体对齐方式
-        this.subTitleStyle = "";      // 副标题样式
+        this.subTitleStyle = {};      // 副标题样式
 
         this.h1LineHeight = "";               // 一级标题行距
         this.h1ParagraphPaddingTop = "";      // 一级标题段前
@@ -48,7 +48,7 @@ class DocTool {
         this.h1FontWeight = ""; // 一级标题字体粗细
         this.h1FontColor = "";  // 一级标题字体颜色
         this.h1TextAlign = "";  // 一级标题字体对齐方式
-        this.h1Style = "";      // 一级标题样式
+        this.h1Style = {};      // 一级标题样式
 
         this.h2LineHeight = "";               // 二级标题行距
         this.h2ParagraphPaddingTop = "";      // 二级标题段前
@@ -57,7 +57,7 @@ class DocTool {
         this.h2FontWeight = ""; // 二级标题字体粗细
         this.h2FontColor = "";  // 二级标题字体颜色
         this.h2TextAlign = "";  // 二级标题字体对齐方式
-        this.h2Style = "";      // 二级标题样式
+        this.h2Style = {};      // 二级标题样式
 
         this.textLineHeight = "";               // 正文行距
         this.textParagraphPaddingTop = "";      // 正文段前
@@ -66,7 +66,7 @@ class DocTool {
         this.textFontWeight = ""; // 正文字体粗细
         this.textFontColor = "";  // 正文字体颜色
         this.textTextAlign = "";  // 正文字体对齐方式
-        this.textStyle = "";      // 正文样式
+        this.textStyle = {};      // 正文样式
 
         this.creating = false;
         this.taskQueue = [];
@@ -125,6 +125,72 @@ class DocTool {
             this.$container.children("article").remove();
         else
             this.$container.children("article").eq(index).remove();
+    }
+
+    /**
+     * 自定义页面宽度
+     *
+     * @param width {string | number} 页面宽度
+     */
+    setPageWidth(width) {
+        if (typeof width === "number") width += "px";
+        if (Number.isNaN(parseFloat(width))) return;
+        this.width = width;
+    }
+
+    /**
+     * 自定义页面高度
+     *
+     * @param height {string | number} 页面高度
+     */
+    setPageHeight(height) {
+        if (typeof height === "number") height += "px";
+        if (Number.isNaN(height)) return;
+        this.height = height;
+    }
+
+    /**
+     * 自定义页面上边距
+     *
+     * @param paddingTop {string | number} 页面上边距
+     */
+    setPagePaddingTop(paddingTop) {
+        if (typeof paddingTop === "number") paddingTop += "px";
+        if (Number.isNaN(paddingTop)) return;
+        this.paddingTop = paddingTop;
+    }
+
+    /**
+     * 自定义页面右边距
+     *
+     * @param paddingRight {string | number} 页面右边距
+     */
+    setPagePaddingRight(paddingRight) {
+        if (typeof paddingRight === "number") paddingRight += "px";
+        if (Number.isNaN(paddingRight)) return;
+        this.paddingRight = paddingRight;
+    }
+
+    /**
+     * 自定义页面下边距
+     *
+     * @param paddingBottom {string | number} 页面下边距
+     */
+    setPagePaddingBottom(paddingBottom) {
+        if (typeof paddingBottom === "number") paddingBottom += "px";
+        if (Number.isNaN(paddingBottom)) return;
+        this.paddingBottom = paddingBottom;
+    }
+
+    /**
+     * 自定义页面左边距
+     *
+     * @param paddingLeft {string | number} 页面左边距
+     */
+    setPagePaddingLeft(paddingLeft) {
+        if (typeof paddingLeft === "number") paddingLeft += "px";
+        if (Number.isNaN(paddingLeft)) return;
+        this.paddingLeft = paddingLeft;
     }
 
     /**

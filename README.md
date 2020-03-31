@@ -89,6 +89,46 @@ doc.deletePage();
 doc.changePageSize("A4");   // 目前仅支持 A4 大小
 ```
 
+#### 7) 设置自定义页面参数
+
+应用于 css 样式，单位需要为“px”，参数类型可为 string 可为 number。
+
+1.页面宽度
+
+```javascript
+doc.setPageWidth(width);
+```
+
+2.页面高度
+
+```javascript
+doc.setPageHeight(height);
+```
+
+3.页面上边距
+
+```javascript
+doc.setPagePaddingTop(paddingTop);
+```
+
+4.页面右边距
+
+```javascript
+doc.setPagePaddingRight(paddingRight);
+```
+
+5.页面下边距
+
+```javascript
+doc.setPagePaddingBottom(paddingBottom);
+```
+
+6.页面左边距
+
+```javascript
+doc.setPagePaddingLeft(paddingLeft);
+```
+
 ### 4. 创建段落文本
 
 #### 1) 标题
