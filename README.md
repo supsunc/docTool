@@ -86,10 +86,44 @@ doc.deletePage();
 #### 6) 改变页面大小
 
 ```javascript
-doc.changePageSize("A4");   // 目前仅支持 A4 大小
+// 目前仅支持 A4、A5、A6、16 开、32 开 大小
+doc.changePageSize();       // width: 792px; height: 1120px;(A4)
+doc.changePageSize("");     // width: 792px; height: 1120px;(A4)
+doc.changePageSize("A4");   // width: 792px; height: 1120px;(A4)
+doc.changePageSize("A5");   // width: 558px; height: 792px;
+doc.changePageSize("A6");   // width: 396px; height: 558px;
+doc.changePageSize("16K");  // width: 694px; height: 980px;
+doc.changePageSize("32K");  // width: 490px; height: 694px;
 ```
 
-#### 7) 设置自定义页面参数
+#### 7) 改变页边距
+
+```javascript
+// 目前仅支持 正常 Normal、宽 Wide、适中 Moderate、窄 Narrow
+doc.changePagePadding();            // padding: 94px 118px;(Normal)
+doc.changePagePadding("");          // padding: 94px 118px;(Normal)
+doc.changePagePadding("Normal");    // padding: 94px 118px;
+doc.changePagePadding("Wide");      // padding: 94px 191px;
+doc.changePagePadding("Moderate");  // padding: 94px 72px;
+doc.changePagePadding("Narrow");    // padding: 48px;
+```
+
+#### 8) 改变页面背景颜色
+
+```javascript
+// 设置背景色
+doc.setPageBackgroundColor("#5f5");
+doc.setPageBackgroundColor("rgb(85, 255, 85)");
+```
+
+```javascript
+// 清除背景色
+doc.clearPageBackgroundColor();
+doc.setPageBackgroundColor();
+doc.setPageBackgroundColor("");
+```
+
+#### 9) 设置自定义页面参数
 
 应用于 css 样式，单位需要为“px”，参数类型可为 string 可为 number。
 

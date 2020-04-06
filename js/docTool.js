@@ -1,12 +1,13 @@
 /**
- * @version 0.21
+ * @version 0.22
  * @author ssc
  */
 class DocTool {
     constructor(id, init = true) {
         this.container = document.getElementById(id);
-        this.$container = $("#" + id).addClass(["docContainer", "docPageA4"]).empty();
+        this.$container = $("#" + id).addClass(["docContainer", "docPageA4", "docPagePaddingNormal"]).empty();
         this.pageSize = "A4";
+        this.pagePadding = "Normal";
         this.pageDefaultParameter = {
             width: 792,     // 页面宽度
             height: 1120,   // 页面高度
@@ -22,6 +23,7 @@ class DocTool {
         this.paddingRight = "";  // 页面右边距
         this.paddingBottom = ""; // 页面下边距
         this.paddingLeft = "";   // 页面左边距
+        this.backgroundColor = "";
 
         this.titleLineHeight = "";              // 标题行距
         this.titleParagraphPaddingTop = "";     // 标题段前
@@ -86,7 +88,8 @@ class DocTool {
             .css("padding-top", this.paddingTop)
             .css("padding-right", this.paddingRight)
             .css("padding-bottom", this.paddingBottom)
-            .css("padding-left", this.paddingLeft);
+            .css("padding-left", this.paddingLeft)
+            .css("background-color", this.backgroundColor);
         this.$container.append(article);
         return article;
     }
@@ -94,11 +97,23 @@ class DocTool {
     /**
      * 修改页面大小
      *
-     * @param size  {string} 页面大小，e.g. "A4"
+     * @param size  {""|"A4"|"A5"|"A6"|"16K"|"32K"} 页面大小
      */
-    changePageSize(size) {
+    changePageSize(size = "A4") {
+        if (size === "") size = "A4";
         this.$container.removeClass(`docPage${this.pageSize}`).addClass(`docPage${size}`);
         this.pageSize = size;
+    }
+
+    /**
+     * 修改页边距
+     *
+     * @param padding  {""|"Normal"|"Wide"|"Moderate"|"Narrow"} 页面大小
+     */
+    changePagePadding(padding = "Normal") {
+        if (padding === "") padding = "Normal";
+        this.$container.removeClass(`docPagePadding${this.pagePadding}`).addClass(`docPagePadding${padding}`);
+        this.pagePadding = padding;
     }
 
     /**
@@ -191,6 +206,23 @@ class DocTool {
         if (typeof paddingLeft === "number") paddingLeft += "px";
         if (Number.isNaN(paddingLeft)) return;
         this.paddingLeft = paddingLeft;
+    }
+
+    /**
+     * 修改页面背景颜色
+     *
+     * @param color  {string} 页面大小
+     */
+    setPageBackgroundColor(color = "") {
+        this.$container.children("article").css("background-color", color);
+        this.backgroundColor = color;
+    }
+
+    /**
+     * 清除页面背景颜色，恢复默认
+     */
+    clearPageBackgroundColor() {
+        this.setPageBackgroundColor();
     }
 
     /**
